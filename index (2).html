@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aishwarya G — AIML Engineer &amp; Agentic Systems Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --tint:#FFF6EE;
+    --orange:#FF6A1A;
+    --orange-dim:#FFB27A;
+    --ink:#1A1410;
+    --graphite:#6B625C;
+    --line:#F0DCC8;
+    --shadow: 0 8px 30px rgba(255,106,26,0.10);
+    --radius: 14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--orange);color:var(--white);}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Layout shell ---------- */
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,255,255,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;font-size:15px;letter-spacing:0.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);
+    box-shadow:0 0 0 4px rgba(255,106,26,0.15); }
+  .navlinks{display:flex;gap:32px;font-size:14px;font-weight:500;color:var(--graphite);}
+  .navlinks a{position:relative;padding:6px 0;transition:color .2s;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--orange);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:focus-visible, .btn:focus-visible, .card:focus-visible{
+    outline:2px solid var(--orange); outline-offset:3px;
+  }
+  .navcta{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;
+    background:var(--ink);color:var(--white);padding:9px 16px;border-radius:8px;
+    transition:background .2s;
+  }
+  .navcta:hover{background:var(--orange);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;
+    padding-top:72px;
+    background:
+      radial-gradient(600px 400px at 85% 15%, rgba(255,106,26,0.10), transparent 70%),
+      var(--white);
+    position:relative;
+    overflow:hidden;
+  }
+  #graph-canvas{
+    position:absolute; inset:0; width:100%; height:100%;
+    z-index:0; opacity:0.9;
+  }
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--orange);
+    letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow .bar{width:26px;height:1px;background:var(--orange);}
+  .hero h1{
+    font-size:clamp(38px,5.2vw,64px);
+    font-weight:700;line-height:1.06;letter-spacing:-1.5px;
+    margin-bottom:22px;
+  }
+  .hero h1 span{color:var(--orange);}
+  .hero p.sub{
+    font-size:17px;color:var(--graphite);max-width:480px;margin-bottom:34px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+  .btn{
+    font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;
+    padding:13px 22px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease;
+    border:1.5px solid transparent;
+  }
+  .btn-solid{background:var(--orange);color:var(--white);box-shadow:var(--shadow);}
+  .btn-solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,106,26,0.25);}
+  .btn-ghost{border-color:var(--line);color:var(--ink);background:var(--white);}
+  .btn-ghost:hover{border-color:var(--orange);transform:translateY(-2px);}
+
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap;}
+  .hero-meta div{font-family:'JetBrains Mono',monospace;}
+  .hero-meta .num{font-size:22px;font-weight:600;color:var(--ink);}
+  .hero-meta .label{font-size:11.5px;color:var(--graphite);text-transform:uppercase;letter-spacing:0.6px;}
+
+  .hero-card{
+    background:var(--tint);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:26px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    box-shadow:var(--shadow);
+  }
+  .hero-card .line{color:var(--graphite);margin-bottom:6px;}
+  .hero-card .line .k{color:var(--orange);}
+  .hero-card .divider{height:1px;background:var(--line);margin:14px 0;}
+  .status-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--white);border:1px solid var(--line);
+    padding:5px 10px;border-radius:20px;font-size:11.5px;margin-top:4px;
+  }
+  .status-pill .d{width:6px;height:6px;border-radius:50%;background:#2FAE55;}
+
+  /* ---------- Section headers ---------- */
+  .sec-head{margin-bottom:44px;}
+  .sec-head .eyebrow{color:var(--orange);}
+  .sec-head h2{font-size:clamp(28px,3.4vw,38px);letter-spacing:-1px;}
+  section{padding:100px 0;}
+  section.tint{background:var(--tint);}
+  section.tint::before, section.tint::after{
+    content:'';position:absolute;left:0;right:0;height:1px;background:var(--line);
+  }
+  section.tint::before{top:0;} section.tint::after{bottom:0;}
+
+  /* ---------- About / Skills ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .about-grid p{color:var(--graphite);font-size:16px;margin-bottom:16px;}
+  .about-grid p strong{color:var(--ink);}
+  .skill-block{margin-bottom:22px;}
+  .skill-block .cat{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--orange);
+    text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:block;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;
+    background:var(--white);border:1px solid var(--line);
+    padding:7px 12px;border-radius:7px;transition:all .2s;
+  }
+  .chip:hover{border-color:var(--orange);color:var(--orange);}
+
+  /* ---------- Projects ---------- */
+  .proj-list{display:flex;flex-direction:column;gap:20px;}
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px;
+    display:grid;grid-template-columns:220px 1fr;gap:30px;
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .card:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow);}
+  .card .tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    color:var(--orange);letter-spacing:0.3px;
+  }
+  .card .flagship{
+    display:inline-block;margin-top:10px;font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;background:var(--ink);color:var(--white);
+    padding:3px 8px;border-radius:5px;letter-spacing:0.5px;
+  }
+  .card h3{font-size:20px;margin:14px 0 10px 0;}
+  .card p{color:var(--graphite);font-size:14.5px;margin-bottom:14px;}
+  .stack{display:flex;flex-wrap:wrap;gap:7px;}
+  .stack span{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--graphite);
+    background:var(--tint);padding:4px 9px;border-radius:5px;
+  }
+
+  /* ---------- Certifications / Achievements ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .list-item{
+    display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);
+  }
+  .list-item:last-child{border-bottom:none;}
+  .list-item .yr{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--orange);
+    min-width:44px;padding-top:2px;
+  }
+  .list-item h4{font-size:15.5px;margin-bottom:3px;}
+  .list-item p{font-size:13.5px;color:var(--graphite);}
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;
+  }
+  .contact-wrap h2{font-size:clamp(30px,4vw,46px);letter-spacing:-1px;margin-bottom:18px;}
+  .contact-wrap p{color:var(--graphite);font-size:16px;max-width:440px;}
+  .contact-links{display:flex;flex-direction:column;gap:2px;}
+  .contact-links a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 22px;border:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+    border-radius:10px;margin-bottom:10px;background:var(--white);
+    transition:all .2s;
+  }
+  .contact-links a:hover{border-color:var(--orange);background:var(--tint);}
+  .contact-links a .arrow{color:var(--orange);transition:transform .2s;}
+  .contact-links a:hover .arrow{transform:translateX(4px);}
+
+  footer{
+    padding:36px 0;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--graphite);
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .navlinks{display:none;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-card{order:-1;}
+    .about-grid, .two-col, .contact-wrap{grid-template-columns:1fr;gap:36px;}
+    .card{grid-template-columns:1fr;}
+    section{padding:70px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>AISHWARYA.G</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+      <a href="https://drive.google.com/file/d/1UHaeWF1ZzTl_eHmsaJZ5C5TKfq15iGKp/view?usp=drivesdk" target="_blank" rel="noopener">Resume</a>
+    </div>
+    <a class="navcta" href="#contact">GET IN TOUCH</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="bar"></span>AIML ENGINEER · SOFTWARE DEVELOPER</div>
+      <h1>Building practical <span>AI &amp; software</span><br>that solves real problems.</h1>
+      <p class="sub">Aishwarya G — an AIML undergraduate at Ballari Institute of Technology and Management, building machine learning apps and full-stack projects end to end. Based in Bellary, India.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="#projects">View Projects →</a>
+        <a class="btn btn-ghost" href="https://drive.google.com/file/d/1UHaeWF1ZzTl_eHmsaJZ5C5TKfq15iGKp/view?usp=drivesdk" target="_blank" rel="noopener">Resume</a>
+        <a class="btn btn-ghost" href="https://github.com/GollaAishwarya" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/aishwarya-golla-158655306/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="hero-meta">
+        <div><div class="num">8.3</div><div class="label">CGPA / 10.0</div></div>
+        <div><div class="num">5</div><div class="label">Projects Shipped</div></div>
+        <div><div class="num">3</div><div class="label">Cloud Certifications</div></div>
+        <div><div class="num">2026</div><div class="label">Graduating</div></div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="line"><span class="k">education</span> :: B.Tech, AIML</div>
+      <div class="line"><span class="k">college</span> :: Ballari Institute of Tech.</div>
+      <div class="line"><span class="k">location</span> :: Bellary, India</div>
+      <div class="divider"></div>
+      <div class="line"><span class="k">focus</span> :: Python, ML, cloud, full-stack</div>
+      <div class="line"><span class="k">interests</span> :: writing, design, freelancing</div>
+      <div class="status-pill"><span class="d"></span>open to opportunities</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="bar"></span>ABOUT</div>
+      <h2>Grounded in systems, curious about everything else.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm an <strong>Artificial Intelligence and Machine Learning</strong> undergraduate (2022–2026) at <strong>Ballari Institute of Technology and Management</strong>, carrying a CGPA of <strong>8.3/10.0</strong>. I enjoy building things end to end — from ML models and data pipelines to full-stack web apps.</p>
+        <p>My project work spans healthcare AI, legal tech, bioinformatics, and social media analytics, usually with Python at the core and a cloud or web layer built around it. I like taking an idea from a rough notebook to something people can actually use.</p>
+        <p>Outside of coursework, I lead the <strong>Creativity Club</strong> at my department, compete in hackathons and ideathons, and write about topics I care about in my spare time.</p>
+      </div>
+      <div class="reveal">
+        <div class="skill-block">
+          <span class="cat">Languages</span>
+          <div class="chips"><span class="chip">C</span><span class="chip">Python</span></div>
+        </div>
+        <div class="skill-block">
+          <span class="cat">Concepts</span>
+          <div class="chips"><span class="chip">Cloud Computing (AWS)</span><span class="chip">Data Structures &amp; Algorithms</span></div>
+        </div>
+        <div class="skill-block">
+          <span class="cat">Databases</span>
+          <div class="chips"><span class="chip">SQL</span><span class="chip">Firebase</span><span class="chip">SQLite</span></div>
+        </div>
+        <div class="skill-block">
+          <span class="cat">Libraries &amp; Frameworks</span>
+          <div class="chips">
+            <span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">Pandas</span>
+            <span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Seaborn</span>
+            <span class="chip">Streamlit</span><span class="chip">FastAPI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="bar"></span>PROJECTS</div>
+      <h2>Systems I've designed and shipped.</h2>
+    </div>
+    <div class="proj-list">
+
+      <div class="card reveal">
+        <div>
+          <span class="tag">PROJECT 01</span>
+          <div class="flagship">FEATURED</div>
+        </div>
+        <div>
+          <h3>ClinIQ — Clinical Decision Support System</h3>
+          <p>A healthcare AI system where multiple LLM components collaborate to diagnose patients, using adversarial and reflective reasoning. Includes real-time drug-interaction checks against the OpenFDA API, a custom decision-termination rule based on confidence trajectory, and a live visualization of how confidence shifts as the system reasons.</p>
+          <div class="stack">
+            <span>LangGraph</span><span>LangChain</span><span>LLaMA 3.3 70B (Groq)</span>
+            <span>OpenFDA API</span><span>Streamlit</span><span>Python</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div><span class="tag">PROJECT 02</span></div>
+        <div>
+          <h3>Legal RAG Assistant</h3>
+          <p>A full-stack legal research application that pairs a FastAPI backend with a React frontend, using retrieval-augmented generation over SQLite-stored case data so the assistant grounds its answers in real legal text.</p>
+          <div class="stack"><span>Python</span><span>FastAPI</span><span>React</span><span>SQLite</span><span>RAG</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div><span class="tag">PROJECT 03</span></div>
+        <div>
+          <h3>Bioactivity Prediction App — Acetylcholinesterase</h3>
+          <p>A Streamlit ML app that predicts drug bioactivity relevant to Alzheimer's treatment, built on ChEMBL bioactivity data with molecular descriptors generated via PaDEL-Descriptor and RDKit.</p>
+          <div class="stack"><span>Streamlit</span><span>ChEMBL</span><span>PaDEL-Descriptor</span><span>RDKit</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div><span class="tag">PROJECT 04</span></div>
+        <div>
+          <h3>Twitter Hashtag Analysis</h3>
+          <p>A real-time analytics tool that pulls live Twitter data via Tweepy and applies NLP for sentiment and trend analysis, surfaced through interactive visualizations.</p>
+          <div class="stack"><span>Tweepy</span><span>NLP</span><span>Python</span><span>Visualization</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div><span class="tag">PROJECT 05</span></div>
+        <div>
+          <h3>Virtual Ticketing System — ETZ Training</h3>
+          <p>A web-based event ticket booking platform with secure authentication, real-time booking, and a responsive UI, built during structured training.</p>
+          <div class="stack"><span>Streamlit</span><span>Python</span><span>Firebase</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="bar"></span>CREDENTIALS</div>
+      <h2>Certifications &amp; achievements.</h2>
+    </div>
+    <div class="two-col">
+      <div class="reveal">
+        <span class="cat" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px;">Certifications</span>
+        <div class="list-item">
+          <div class="yr">2025</div>
+          <div><h4>Google Cloud Career Launchpad — Associate Cloud Engineer</h4><p>Google Cloud</p></div>
+        </div>
+        <div class="list-item">
+          <div class="yr">2025</div>
+          <div><h4>AWS Cloud Quest — Cloud Practitioner</h4><p>Amazon Web Services</p></div>
+        </div>
+        <div class="list-item">
+          <div class="yr">—</div>
+          <div><h4>ServiceNow CSA &amp; CAD Certifications</h4><p>Certified System Administrator &amp; Certified Application Developer</p></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="cat" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:10px;">Achievements &amp; Activities</span>
+        <div class="list-item">
+          <div class="yr">2024</div>
+          <div><h4>IGNITRON 2K24 Ideathon</h4><p>Participant</p></div>
+        </div>
+        <div class="list-item">
+          <div class="yr">—</div>
+          <div><h4>HackB25 &amp; HackB24</h4><p>Hackathon Participant</p></div>
+        </div>
+        <div class="list-item">
+          <div class="yr">—</div>
+          <div><h4>Captain, Creativity Club</h4><p>AIML Department</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div class="reveal">
+        <div class="eyebrow"><span class="bar"></span>CONTACT</div>
+        <h2>Let's build something that reasons.</h2>
+        <p>Open to internships, freelance builds, and collaborations on agentic AI systems. Reach out through any of the channels below.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="https://drive.google.com/file/d/1UHaeWF1ZzTl_eHmsaJZ5C5TKfq15iGKp/view?usp=drivesdk" target="_blank" rel="noopener"><span>Resume (Google Drive)</span><span class="arrow">→</span></a>
+        <a href="mailto:aishwaryaagolla@gmail.com"><span>aishwaryaagolla@gmail.com</span><span class="arrow">→</span></a>
+        <a href="mailto:gollaaishwarya3@gmail.com"><span>gollaaishwarya3@gmail.com</span><span class="arrow">→</span></a>
+        <a href="tel:+919380653625"><span>+91 93806 53625</span><span class="arrow">→</span></a>
+        <a href="https://github.com/GollaAishwarya" target="_blank" rel="noopener"><span>github.com/GollaAishwarya</span><span class="arrow">→</span></a>
+        <a href="https://www.linkedin.com/in/aishwarya-golla-158655306/" target="_blank" rel="noopener"><span>linkedin.com/in/aishwarya-golla</span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Aishwarya G · Bellary, India · Built with intent, not a template.
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12});
+  reveals.forEach(el=>io.observe(el));
+
+</script>
+
+</body>
+</html>
